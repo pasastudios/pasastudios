@@ -2,7 +2,1017 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pasa Studio - Online Musik Studio</title>
+    <style>
+        :root {
+            --fl-bg-dark: #1a1a1a;
+            --fl-bg-darker: #141414;
+            --fl-bg-light: #2a2a2a;
+            --fl-accent: #ff6b6b;
+            --fl-text: #ffffff;
+            --fl-text-dim: #888888;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--fl-bg-dark);
+            color: var(--fl-text);
+            min-height: 100vh;
+        }
+
+        .nav-bar {
+            background-color: var(--fl-bg-darker);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--fl-accent);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, var(--fl-accent), #ff8e8e);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transform: rotate(-5deg);
+        }
+
+        .logo-text {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: var(--fl-text);
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 3px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--fl-bg-light);
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(45deg, var(--fl-bg-darker), var(--fl-bg-dark));
+        }
+
+        .hero-title {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: var(--fl-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .hero-logo {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, var(--fl-accent), #ff8e8e);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            transform: rotate(-5deg);
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            color: var(--fl-text-dim);
+            margin-bottom: 30px;
+        }
+
+        .cta-button {
+            background-color: var(--fl-accent);
+            color: var(--fl-text);
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+        }
+
+        .features-section {
+            padding: 60px 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background-color: var(--fl-bg-light);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+            color: var(--fl-accent);
+        }
+
+        .feature-title {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .feature-description {
+            color: var(--fl-text-dim);
+        }
+
+        .studio-section {
+            display: none;
+            height: calc(100vh - 60px);
+        }
+
+        .container {
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            height: 100%;
+            padding: 5px;
+            gap: 5px;
+        }
+
+        .top-bar {
+            background-color: var(--fl-bg-darker);
+            padding: 5px;
+            border-radius: 3px;
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 5px;
+        }
+
+        .playlist-area {
+            background-color: var(--fl-bg-darker);
+            padding: 5px;
+            border-radius: 3px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .track-grid {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 5px;
+            flex-grow: 1;
+            overflow: hidden;
+        }
+
+        .track-names {
+            background-color: var(--fl-bg-light);
+            padding: 5px;
+            border-radius: 3px;
+            overflow-y: auto;
+        }
+
+        .track-content {
+            background-color: var(--fl-bg-light);
+            padding: 5px;
+            border-radius: 3px;
+            overflow-y: auto;
+        }
+
+        .track {
+            background-color: var(--fl-bg-darker);
+            margin: 2px 0;
+            padding: 5px;
+            border-radius: 3px;
+            border-left: 2px solid var(--fl-accent);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .mixer-area {
+            background-color: var(--fl-bg-darker);
+            padding: 5px;
+            border-radius: 3px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .mixer-channel {
+            background-color: var(--fl-bg-light);
+            padding: 5px;
+            border-radius: 3px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .channel-name {
+            font-size: 0.8em;
+            color: var(--fl-text-dim);
+        }
+
+        .channel-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .volume-slider {
+            writing-mode: bt-lr;
+            -webkit-appearance: slider-vertical;
+            width: 20px;
+            height: 100px;
+            padding: 0 5px;
+        }
+
+        button {
+            background-color: var(--fl-bg-light);
+            color: var(--fl-text);
+            padding: 5px 10px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            font-size: 0.9em;
+        }
+
+        button:hover {
+            background-color: var(--fl-accent);
+        }
+
+        button:disabled {
+            background-color: var(--fl-bg-darker);
+            color: var(--fl-text-dim);
+            cursor: not-allowed;
+        }
+
+        .transport-controls {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .transport-button {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1em;
+        }
+
+        .play-button {
+            background-color: var(--fl-accent);
+        }
+
+        .stop-button {
+            background-color: #ff4444;
+        }
+
+        .timeline {
+            background-color: var(--fl-bg-light);
+            padding: 5px;
+            border-radius: 3px;
+            margin-top: 5px;
+        }
+
+        .time-display {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            color: var(--fl-text-dim);
+            font-size: 0.8em;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 3px;
+            background: var(--fl-bg-darker);
+            border-radius: 2px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 10px;
+            height: 10px;
+            background: var(--fl-accent);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .file-label {
+            background-color: var(--fl-bg-light);
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            font-size: 0.9em;
+        }
+
+        .file-label:hover {
+            background-color: var(--fl-accent);
+        }
+
+        .tutorials-section {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tutorial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .tutorial-card {
+            background-color: var(--fl-bg-light);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .tutorial-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tutorial-image {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .tutorial-content {
+            padding: 20px;
+        }
+
+        .tutorial-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: var(--fl-accent);
+        }
+
+        .tutorial-description {
+            color: var(--fl-text-dim);
+            margin-bottom: 15px;
+        }
+
+        .tutorial-button {
+            background-color: var(--fl-accent);
+            color: var(--fl-text);
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .tutorial-button:hover {
+            background-color: #ff8e8e;
+        }
+
+        .feature-image {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        .gallery-image:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-bar">
+        <div class="logo">
+            <div class="logo-icon">🎵</div>
+            <div class="logo-text">PASA STUDIO</div>
+        </div>
+        <div class="nav-links">
+            <a href="#" onclick="showSection('home')">Startseite</a>
+            <a href="#" onclick="showSection('studio')">Studio</a>
+            <a href="#" onclick="showSection('tutorials')">Tutorials</a>
+        </div>
+    </div>
+
+    <div id="home-section">
+        <div class="hero-section">
+            <h1 class="hero-title">
+                <div class="hero-logo">🎵</div>
+                PASA STUDIO
+            </h1>
+            <p class="hero-subtitle">Erstelle professionelle Musik direkt in deinem Browser</p>
+            <button class="cta-button" onclick="showSection('studio')">Studio öffnen</button>
+        </div>
+
+        <div class="features-section">
+            <div class="feature-card">
+                <div class="feature-image" style="background-image: url('https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')"></div>
+                <div class="feature-icon">🎵</div>
+                <h3 class="feature-title">Mehrspur-Aufnahme</h3>
+                <p class="feature-description">Erstelle und bearbeite mehrere Audiospuren gleichzeitig</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-image" style="background-image: url('https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')"></div>
+                <div class="feature-icon">🎚️</div>
+                <h3 class="feature-title">Professioneller Mixer</h3>
+                <p class="feature-description">Kontrolliere Lautstärke und Effekte für jede Spur</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-image" style="background-image: url('https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')"></div>
+                <div class="feature-icon">🎹</div>
+                <h3 class="feature-title">Autotune & Effekte</h3>
+                <p class="feature-description">Verwende professionelle Effekte wie Autotune und Pitch-Shifting</p>
+            </div>
+        </div>
+
+        <div class="image-gallery">
+            <div class="gallery-image" style="background-image: url('https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')"></div>
+            <div class="gallery-image" style="background-image: url('https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')"></div>
+            <div class="gallery-image" style="background-image: url('https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')"></div>
+        </div>
+    </div>
+
+    <div id="studio-section" class="studio-section">
+        <div class="container">
+            <div class="top-bar">
+                <input type="file" id="audioFile" class="file-input" accept="audio/*">
+                <label for="audioFile" class="file-label">Neue Spur</label>
+                <button id="recordButton">Aufnahme</button>
+                <div class="transport-controls">
+                    <button id="playButton" class="transport-button play-button" disabled>▶</button>
+                    <button id="stopButton" class="transport-button stop-button" disabled>■</button>
+                </div>
+                <button id="saveButton" disabled>Speichern</button>
+            </div>
+
+            <div class="main-content">
+                <div class="playlist-area">
+                    <div class="track-grid">
+                        <div class="track-names" id="trackNames"></div>
+                        <div class="track-content" id="trackContent"></div>
+                    </div>
+                    <div class="timeline">
+                        <div class="time-display">
+                            <span>Start: <span id="startTime">0:00</span></span>
+                            <span>Ende: <span id="endTime">0:00</span></span>
+                        </div>
+                        <input type="range" id="startSlider" min="0" max="0" value="0">
+                        <input type="range" id="endSlider" min="0" max="0" value="0">
+                    </div>
+                </div>
+
+                <div class="mixer-area" id="mixerArea">
+                    <h3>Mixer</h3>
+                    <div id="mixerChannels"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="tutorials-section" class="tutorials-section">
+        <h2>Tutorials</h2>
+        <p>Lerne, wie du Pasa Studio optimal nutzen kannst</p>
+        
+        <div class="tutorial-grid">
+            <div class="tutorial-card">
+                <div class="tutorial-image" style="background-image: url('https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')"></div>
+                <div class="tutorial-content">
+                    <h3 class="tutorial-title">Erste Schritte</h3>
+                    <p class="tutorial-description">Lerne die Grundlagen von Pasa Studio kennen und erstelle deine erste Aufnahme.</p>
+                    <button class="tutorial-button">Tutorial ansehen</button>
+                </div>
+            </div>
+
+            <div class="tutorial-card">
+                <div class="tutorial-image" style="background-image: url('https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')"></div>
+                <div class="tutorial-content">
+                    <h3 class="tutorial-title">Mehrspur-Aufnahme</h3>
+                    <p class="tutorial-description">Erfahre, wie du mehrere Spuren aufnimmst und bearbeitest.</p>
+                    <button class="tutorial-button">Tutorial ansehen</button>
+                </div>
+            </div>
+
+            <div class="tutorial-card">
+                <div class="tutorial-image" style="background-image: url('https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80')"></div>
+                <div class="tutorial-content">
+                    <h3 class="tutorial-title">Effekte & Mixing</h3>
+                    <p class="tutorial-description">Lerne, wie du Autotune und andere Effekte verwendest.</p>
+                    <button class="tutorial-button">Tutorial ansehen</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let audioContext;
+        let tracks = [];
+        let startTime = 0;
+        let endTime = 0;
+        let isPlaying = false;
+        let isRecording = false;
+        let mediaRecorder;
+        let recordedChunks = [];
+
+        class Track {
+            constructor(name, buffer) {
+                this.name = name;
+                this.buffer = buffer;
+                this.volume = 100;
+                this.autotune = 0;
+                this.pitch = 0;
+                this.sourceNode = null;
+                this.gainNode = null;
+                this.delayNode = null;
+            }
+        }
+
+        const audioFile = document.getElementById('audioFile');
+        const recordButton = document.getElementById('recordButton');
+        const playButton = document.getElementById('playButton');
+        const stopButton = document.getElementById('stopButton');
+        const saveButton = document.getElementById('saveButton');
+        const startSlider = document.getElementById('startSlider');
+        const endSlider = document.getElementById('endSlider');
+        const startTimeDisplay = document.getElementById('startTime');
+        const endTimeDisplay = document.getElementById('endTime');
+        const fileNameDisplay = document.getElementById('fileName');
+        const tracksContainer = document.getElementById('tracks');
+
+        audioFile.addEventListener('change', handleFileSelect);
+        recordButton.addEventListener('click', toggleRecording);
+        playButton.addEventListener('click', playAudio);
+        stopButton.addEventListener('click', stopAudio);
+        saveButton.addEventListener('click', saveAudio);
+        startSlider.addEventListener('input', updateStartTime);
+        endSlider.addEventListener('input', updateEndTime);
+
+        function createTrackElement(track, index) {
+            const trackDiv = document.createElement('div');
+            trackDiv.className = 'track';
+            trackDiv.innerHTML = `
+                <div class="track-header">
+                    <span class="track-title">${track.name}</span>
+                    <button class="track-remove" onclick="removeTrack(${index})">Spur entfernen</button>
+                </div>
+                <div class="track-effects">
+                    <div>
+                        <label>Lautstärke: <span>${track.volume}</span>%</label>
+                        <input type="range" min="0" max="100" value="${track.volume}" 
+                               onchange="updateTrackVolume(${index}, this.value)">
+                    </div>
+                    <div>
+                        <label>Autotune: <span>${track.autotune}</span>%</label>
+                        <input type="range" min="0" max="100" value="${track.autotune}"
+                               onchange="updateTrackAutotune(${index}, this.value)">
+                    </div>
+                    <div>
+                        <label>Tonhöhe: <span>${track.pitch}</span> Halbtöne</label>
+                        <input type="range" min="-12" max="12" value="${track.pitch}"
+                               onchange="updateTrackPitch(${index}, this.value)">
+                    </div>
+                </div>
+            `;
+            return trackDiv;
+        }
+
+        function updateTrackVolume(index, value) {
+            tracks[index].volume = value;
+            const trackElement = tracksContainer.children[index];
+            trackElement.querySelector('span').textContent = value;
+            if (tracks[index].gainNode) {
+                tracks[index].gainNode.gain.value = value / 100;
+            }
+        }
+
+        function updateTrackAutotune(index, value) {
+            tracks[index].autotune = value;
+            const trackElement = tracksContainer.children[index];
+            trackElement.querySelectorAll('span')[1].textContent = value;
+            
+            if (tracks[index].delayNode) {
+                const autotuneStrength = value / 100;
+                tracks[index].delayNode.delayTime.value = 0.01 * autotuneStrength;
+            }
+        }
+
+        function updateTrackPitch(index, value) {
+            tracks[index].pitch = value;
+            const trackElement = tracksContainer.children[index];
+            trackElement.querySelectorAll('span')[2].textContent = value;
+        }
+
+        function removeTrack(index) {
+            if (tracks[index].sourceNode) {
+                tracks[index].sourceNode.stop();
+                tracks[index].sourceNode.disconnect();
+            }
+            tracks.splice(index, 1);
+            updateTracksDisplay();
+        }
+
+        function updateTracksDisplay() {
+            const trackNamesContainer = document.getElementById('trackNames');
+            const trackContentContainer = document.getElementById('trackContent');
+            const mixerChannelsContainer = document.getElementById('mixerChannels');
+            
+            trackNamesContainer.innerHTML = '';
+            trackContentContainer.innerHTML = '';
+            mixerChannelsContainer.innerHTML = '';
+
+            tracks.forEach((track, index) => {
+                // Track Name
+                const trackName = document.createElement('div');
+                trackName.className = 'track';
+                trackName.innerHTML = `
+                    <span>${track.name}</span>
+                `;
+                trackNamesContainer.appendChild(trackName);
+
+                // Track Content
+                const trackContent = document.createElement('div');
+                trackContent.className = 'track';
+                trackContent.innerHTML = `
+                    <div class="track-controls">
+                        <input type="range" class="volume-slider" 
+                               min="0" max="100" value="${track.volume}"
+                               onchange="updateTrackVolume(${index}, this.value)">
+                        <span>${track.volume}%</span>
+                    </div>
+                `;
+                trackContentContainer.appendChild(trackContent);
+
+                // Mixer Channel
+                const mixerChannel = document.createElement('div');
+                mixerChannel.className = 'mixer-channel';
+                mixerChannel.innerHTML = `
+                    <div class="channel-name">${track.name}</div>
+                    <div class="channel-controls">
+                        <input type="range" class="volume-slider" 
+                               min="0" max="100" value="${track.volume}"
+                               onchange="updateTrackVolume(${index}, this.value)">
+                        <span>${track.volume}%</span>
+                    </div>
+                `;
+                mixerChannelsContainer.appendChild(mixerChannel);
+            });
+        }
+
+        async function toggleRecording() {
+            if (!isRecording) {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    mediaRecorder = new MediaRecorder(stream);
+                    recordedChunks = [];
+
+                    mediaRecorder.ondataavailable = (e) => {
+                        if (e.data.size > 0) {
+                            recordedChunks.push(e.data);
+                        }
+                    };
+
+                    mediaRecorder.onstop = async () => {
+                        const blob = new Blob(recordedChunks, { type: 'audio/wav' });
+                        try {
+                            if (!audioContext) {
+                                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                                await audioContext.resume(); // Wichtig: AudioContext aktivieren
+                            }
+                            
+                            const arrayBuffer = await blob.arrayBuffer();
+                            const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+                            const track = new Track('Aufnahme ' + (tracks.length + 1), audioBuffer);
+                            tracks.push(track);
+                            updateTracksDisplay();
+                            updateDuration();
+                            playButton.disabled = false;
+                            stopButton.disabled = false;
+                            saveButton.disabled = false;
+                            alert('Aufnahme erfolgreich hinzugefügt!');
+                        } catch (error) {
+                            console.error('Fehler beim Verarbeiten der Aufnahme:', error);
+                            alert('Fehler beim Verarbeiten der Aufnahme. Bitte versuchen Sie es erneut.');
+                        }
+                    };
+
+                    mediaRecorder.start();
+                    isRecording = true;
+                    recordButton.textContent = 'Aufnahme stoppen';
+                    recordButton.classList.add('recording');
+                } catch (err) {
+                    console.error('Fehler beim Zugriff auf das Mikrofon:', err);
+                    alert('Fehler beim Zugriff auf das Mikrofon. Bitte überprüfen Sie Ihre Berechtigungen.');
+                }
+            } else {
+                mediaRecorder.stop();
+                isRecording = false;
+                recordButton.textContent = 'Aufnahme starten';
+                recordButton.classList.remove('recording');
+            }
+        }
+
+        async function handleFileSelect(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            try {
+                if (!audioContext) {
+                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    await audioContext.resume(); // Wichtig: AudioContext aktivieren
+                }
+
+                const arrayBuffer = await file.arrayBuffer();
+                const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+                const track = new Track(file.name, audioBuffer);
+                tracks.push(track);
+                updateTracksDisplay();
+                updateDuration();
+                playButton.disabled = false;
+                stopButton.disabled = false;
+                saveButton.disabled = false;
+                alert('Audiodatei erfolgreich hinzugefügt!');
+            } catch (error) {
+                console.error('Fehler beim Laden der Audiodatei:', error);
+                alert('Fehler beim Laden der Audiodatei. Bitte überprüfen Sie das Dateiformat.');
+            }
+        }
+
+        function updateDuration() {
+            let maxDuration = 0;
+            tracks.forEach(track => {
+                if (track.buffer.duration > maxDuration) {
+                    maxDuration = track.buffer.duration;
+                }
+            });
+            startSlider.max = maxDuration;
+            endSlider.max = maxDuration;
+            endSlider.value = maxDuration;
+            updateTimeDisplay();
+        }
+
+        async function playAudio() {
+            if (tracks.length === 0) return;
+
+            try {
+                if (!audioContext) {
+                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    await audioContext.resume();
+                }
+
+                if (isPlaying) {
+                    stopAudio();
+                }
+
+                tracks.forEach(track => {
+                    track.sourceNode = audioContext.createBufferSource();
+                    track.gainNode = audioContext.createGain();
+                    track.delayNode = audioContext.createDelay();
+                    
+                    track.sourceNode.buffer = track.buffer;
+                    
+                    // Verbindung mit Delay für Autotune-Effekt
+                    track.sourceNode.connect(track.delayNode);
+                    track.delayNode.connect(track.gainNode);
+                    track.gainNode.connect(audioContext.destination);
+
+                    // Setze Effekte
+                    track.gainNode.gain.value = track.volume / 100;
+                    const autotuneStrength = track.autotune / 100;
+                    track.delayNode.delayTime.value = 0.01 * autotuneStrength;
+
+                    // Setze Start- und Endzeit
+                    startTime = parseFloat(startSlider.value);
+                    endTime = parseFloat(endSlider.value);
+                    
+                    track.sourceNode.start(0, startTime);
+                    track.sourceNode.stop(endTime - startTime);
+                });
+                
+                isPlaying = true;
+                playButton.textContent = 'Pause';
+            } catch (error) {
+                console.error('Fehler beim Abspielen:', error);
+                alert('Fehler beim Abspielen. Bitte versuchen Sie es erneut.');
+            }
+        }
+
+        function stopAudio() {
+            tracks.forEach(track => {
+                if (track.sourceNode) {
+                    track.sourceNode.stop();
+                    track.sourceNode.disconnect();
+                    track.sourceNode = null;
+                }
+                if (track.delayNode) {
+                    track.delayNode.disconnect();
+                    track.delayNode = null;
+                }
+            });
+            isPlaying = false;
+            playButton.textContent = 'Abspielen';
+        }
+
+        function updateStartTime() {
+            startTime = parseFloat(startSlider.value);
+            if (startTime >= endTime) {
+                startTime = endTime - 0.1;
+                startSlider.value = startTime;
+            }
+            updateTimeDisplay();
+        }
+
+        function updateEndTime() {
+            endTime = parseFloat(endSlider.value);
+            if (endTime <= startTime) {
+                endTime = startTime + 0.1;
+                endSlider.value = endTime;
+            }
+            updateTimeDisplay();
+        }
+
+        function updateTimeDisplay() {
+            startTimeDisplay.textContent = formatTime(startTime);
+            endTimeDisplay.textContent = formatTime(endTime);
+        }
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = Math.floor(seconds % 60);
+            return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+        }
+
+        function saveAudio() {
+            if (tracks.length === 0) return;
+
+            // Kombiniere alle Spuren
+            const maxDuration = Math.max(...tracks.map(track => track.buffer.duration));
+            const sampleRate = tracks[0].buffer.sampleRate;
+            const numChannels = tracks[0].buffer.numberOfChannels;
+            const frameCount = Math.floor(maxDuration * sampleRate);
+
+            const combinedBuffer = audioContext.createBuffer(numChannels, frameCount, sampleRate);
+
+            // Füge alle Spuren zusammen
+            tracks.forEach(track => {
+                for (let channel = 0; channel < numChannels; channel++) {
+                    const channelData = track.buffer.getChannelData(channel);
+                    const combinedChannelData = combinedBuffer.getChannelData(channel);
+                    for (let i = 0; i < channelData.length; i++) {
+                        combinedChannelData[i] += channelData[i] * (track.volume / 100);
+                    }
+                }
+            });
+
+            const wav = audioBufferToWav(combinedBuffer);
+            const blob = new Blob([wav], { type: 'audio/wav' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'gemischter_song.wav';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function audioBufferToWav(buffer) {
+            const numChannels = buffer.numberOfChannels;
+            const sampleRate = buffer.sampleRate;
+            const format = 1;
+            const bitDepth = 16;
+
+            const bytesPerSample = bitDepth / 8;
+            const blockAlign = numChannels * bytesPerSample;
+
+            const wav = new ArrayBuffer(44 + buffer.length * blockAlign);
+            const view = new DataView(wav);
+
+            // WAV Header
+            writeString(view, 0, 'RIFF');
+            view.setUint32(4, 36 + buffer.length * blockAlign, true);
+            writeString(view, 8, 'WAVE');
+            writeString(view, 12, 'fmt ');
+            view.setUint32(16, 16, true);
+            view.setUint16(20, format, true);
+            view.setUint16(22, numChannels, true);
+            view.setUint32(24, sampleRate, true);
+            view.setUint32(28, sampleRate * blockAlign, true);
+            view.setUint16(32, blockAlign, true);
+            view.setUint16(34, bitDepth, true);
+            writeString(view, 36, 'data');
+            view.setUint32(40, buffer.length * blockAlign, true);
+
+            // Audio Data
+            const data = new Float32Array(buffer.length);
+            for (let channel = 0; channel < numChannels; channel++) {
+                const channelData = buffer.getChannelData(channel);
+                for (let i = 0; i < buffer.length; i++) {
+                    data[i] += channelData[i];
+                }
+            }
+
+            let offset = 44;
+            for (let i = 0; i < data.length; i++) {
+                const sample = Math.max(-1, Math.min(1, data[i]));
+                view.setInt16(offset, sample * 0x7FFF, true);
+                offset += 2;
+            }
+
+            return wav;
+        }
+
+        function writeString(view, offset, string) {
+            for (let i = 0; i < string.length; i++) {
+                view.setUint8(offset + i, string.charCodeAt(i));
+            }
+        }
+
+        // Neue Funktion für die Navigation
+        function showSection(sectionId) {
+            document.getElementById('home-section').style.display = 'none';
+            document.getElementById('studio-section').style.display = 'none';
+            document.getElementById('tutorials-section').style.display = 'none';
+            
+            document.getElementById(sectionId + '-section').style.display = 'block';
+            
+            if (sectionId === 'studio') {
+                // Initialisiere AudioContext erst wenn das Studio geöffnet wird
+                if (!audioContext) {
+                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    audioContext.resume();
+                }
+            }
+        }
+    </script>
+</body>
+</html> 
     <title>Pasa Studio - Online Musik Studio</title>
     <style>
         :root {
